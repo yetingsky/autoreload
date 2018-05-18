@@ -43,10 +43,6 @@ func build() error {
 	command := exec.Command("go", "build", "-o", "proc", file)
 
 	output, err := command.CombinedOutput()
-	if err != nil {
-		return err
-	}
-
 	if !command.ProcessState.Success() {
 		err = errors.New(string(output))
 	}
@@ -56,7 +52,7 @@ func build() error {
 
 func run() *exec.Cmd {
 	if err := build(); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	cmd := exec.Command("./proc", args...)
